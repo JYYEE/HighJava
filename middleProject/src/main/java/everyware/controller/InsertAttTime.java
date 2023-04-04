@@ -1,4 +1,4 @@
-package middleProject.attendance.controller;
+package everyware.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;

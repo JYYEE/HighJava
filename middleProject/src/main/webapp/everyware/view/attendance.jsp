@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<div id="insertAttTime"></div>
+<div id="updateAttState"></div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package middleProject.attendance.dao;
+package everyware.dao;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -8,10 +8,10 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 public class AttendanceDaoImpl implements IAttendanceDao {
-	private static AttendanceDaoImpl dao;
+	private static IAttendanceDao dao;
 	private AttendanceDaoImpl() {}
 	
-	public static AttendanceDaoImpl getDao() {
+	public static IAttendanceDao getInstance() {
 		if(dao == null) dao = new AttendanceDaoImpl();
 		return dao;
 	}
@@ -23,7 +23,7 @@ public class AttendanceDaoImpl implements IAttendanceDao {
 		try {
 			ip = InetAddress.getLocalHost();
 			String ipaddr = ip.toString();
-			System.out.println(ipaddr);
+			//System.out.println(ipaddr);
 			if (ipaddr.contains("192.168.146")) {
 				// 현재 시간을 LocalDateTime 객체로 가져옵니다.
 				LocalDateTime now = LocalDateTime.now();

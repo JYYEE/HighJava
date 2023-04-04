@@ -1,4 +1,4 @@
-package middleProject.attendance.service;
+package everyware.service;
 
 public interface IAttendanceService {
 	// ip로 로그인시 출근시간 입력

@@ -1,12 +1,19 @@
-package middleProject.vacation.vo;
+package everyware.vo;
 
-public class VacationVO {
+public class VacationsVO {
 	private String vac_id;
 	private String emp_id;
 	private String vac_type;
 	private String vac_start;
 	private String vac_end;
+	private String vac_approve;
 	
+	public String getVac_approve() {
+		return vac_approve;
+	}
+	public void setVac_approve(String vac_approve) {
+		this.vac_approve = vac_approve;
+	}
 	public String getVac_id() {
 		return vac_id;
 	}

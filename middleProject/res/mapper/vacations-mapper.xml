@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 이 문서는 mybatis에서 처리할 SQL문을 작성하는 문서입니다... -->
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="vac">
+	<!-- 휴가 신청 -->
+	<insert id="insertVac" parameterType="vacVO">
+		insert into vacations(VAC_ID, EMP_ID, VAC_TYPE, VAC_START, VAC_END) 
+		values(vac_id_seq.nextval, #{emp_id}, #{vac_type}, #{vac_start}, #{vac_end} )
+	</insert>
+	<!-- 사원별 전체 휴가 조회 -->
+	<select id="selectVacByEmp" parameterType="String" resultType="vacVO">
+		select * from vacations where emp_id = #{emp_id}
+	</select>
+	<!-- 휴가 신청 삭제 -->
+	<delete id="deleteVac" parameterType="String">
+		delete from vacations where vac_id=#{vac_id}
+	</delete>
+	<!-- 연차일수 수정 트리거로 진행-->
+	
+	<!-- (관리자) 전체 사원 휴가 조회 -->
+	<select id="selectAllVac" resultType="vacVO">
+		select * from vacations order by emp_id
+	</select>
+	
+	<!-- (관리자) 사원의 휴가를 승인(update)-->
+	<update id="approveVac" parameterType="String">
+		update vacations set vac_approve ='approve' where vac_id = #{vac_id};
+	</update>
+	
+</mapper>

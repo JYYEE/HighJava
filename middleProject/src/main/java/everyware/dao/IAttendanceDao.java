@@ -1,4 +1,4 @@
-package middleProject.attendance.dao;
+package everyware.dao;
 
 public interface IAttendanceDao {
 	// ip로 로그인시 출근시간 입력

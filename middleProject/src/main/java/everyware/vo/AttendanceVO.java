@@ -1,4 +1,4 @@
-package middleProject.attendance.vo;
+package everyware.vo;
 
 public class AttendanceVO {
 	private String att_date;
@@ -6,7 +6,14 @@ public class AttendanceVO {
 	private String att_time;
 	private String leave_time;
 	private String att_state;
+	private String att_memo;
 	
+	public String getAtt_memo() {
+		return att_memo;
+	}
+	public void setAtt_memo(String att_memo) {
+		this.att_memo = att_memo;
+	}
 	public String getAtt_date() {
 		return att_date;
 	}

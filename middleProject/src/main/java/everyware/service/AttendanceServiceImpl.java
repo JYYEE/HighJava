@@ -1,7 +1,7 @@
-package middleProject.attendance.service;
+package everyware.service;
 
-import middleProject.attendance.dao.AttendanceDaoImpl;
-import middleProject.attendance.dao.IAttendanceDao;
+import everyware.dao.AttendanceDaoImpl;
+import everyware.dao.IAttendanceDao;
 
 public class AttendanceServiceImpl implements IAttendanceService {
 	private IAttendanceDao dao;
@@ -9,7 +9,7 @@ public class AttendanceServiceImpl implements IAttendanceService {
 	private static AttendanceServiceImpl service;
 	
 	private AttendanceServiceImpl() {
-		dao = AttendanceDaoImpl.getDao();
+		dao = AttendanceDaoImpl.getInstance();
 	}
 	
 	public static AttendanceServiceImpl getService() {
