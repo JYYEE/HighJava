@@ -22,11 +22,6 @@ public class VacationsDaoImpl implements IVactionsDao {
 	public int insertVac(VacationsVO vacVO) {
 		SqlSession session = MybatisSqlSessionFactory.getSqlSession();
 		int cnt = session.insert("vac.insertVac", vacVO);
-		if(cnt>0) {
-			System.out.println("휴가 등록 성공");
-		} else {
-			System.out.println("휴가 등록 실패");
-		}
 		session.commit();
 		session.close();
 		return cnt;

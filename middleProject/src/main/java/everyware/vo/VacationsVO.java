@@ -7,7 +7,14 @@ public class VacationsVO {
 	private String vac_start;
 	private String vac_end;
 	private String vac_approve;
+	private String vac_reason;
 	
+	public String getVac_reason() {
+		return vac_reason;
+	}
+	public void setVac_reason(String vac_reason) {
+		this.vac_reason = vac_reason;
+	}
 	public String getVac_approve() {
 		return vac_approve;
 	}
