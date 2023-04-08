@@ -24,7 +24,7 @@ public interface IVactionsDao {
 	 * @param vacId : 휴가를 조회할 휴가id
 	 * @return 작업성공 : 1, 작업실패 : 0
 	 */
-	public int deleteVac(String vacId);
+	public int deleteVac(int vacId);
 	
 	/**
 	 * 관리자가 전 사원의 휴가일정을 조회하는 메소드
@@ -37,6 +37,6 @@ public interface IVactionsDao {
 	 * @param vacId 휴가승인을 신청한 vacId
 	 * @return 작업성공 : 1, 작업실패 : 0
 	 */
-	public int approveVac(String vacId);
+	public int approveVac(int vacId);
 	
 }

@@ -23,8 +23,8 @@
 	
 	<!-- 회원정보 수정 -->
 	<update id="updateMember" parameterType="memVO">
-		update mymember set(mem_pass=#{mem_pass}, mem_name=#{mem_name}, 
-		mem_tel=#{mem_tel}, mem_addr=#{mem_addr}, mem_photo=#{mem_photo})
+		update mymember set mem_pass=#{mem_pass}, mem_name=#{mem_name}, 
+		mem_tel=#{mem_tel}, mem_addr=#{mem_addr}, mem_photo=#{mem_photo}
 		where mem_id=#{mem_id}
 	</update>
 	
@@ -32,4 +32,9 @@
 	<delete id="deleteMember" parameterType="String">
 		delete from mymember where mem_id=#{mem_id}
 	</delete>
+	
+	<!-- id중복체크 -->
+	<select id="checkId" parameterType="String" resultType="int">
+		select count(*) from mymember where mem_id=#{mem_id}
+	</select>
 </mapper>

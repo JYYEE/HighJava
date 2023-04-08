@@ -4,7 +4,7 @@ import java.util.List;
 
 import everyware.vo.VacationsVO;
 
-public interface IVacationService {
+public interface IVacationsService {
 	/**
 	 * 사원이 등록한 휴가 일정을 DB에 insert하는 메소드
 	 * @param vacVO DB에 insert할 자료가 저장된 VacationsVO객체
@@ -24,7 +24,7 @@ public interface IVacationService {
 	 * @param vacId : 휴가를 조회할 휴가id
 	 * @return 작업성공 : 1, 작업실패 : 0
 	 */
-	public int deleteVac(String vacId);
+	public int deleteVac(int vacId);
 	
 	/**
 	 * 관리자가 전 사원의 휴가일정을 조회하는 메소드
@@ -37,5 +37,5 @@ public interface IVacationService {
 	 * @param vacId 휴가승인을 신청한 vacId
 	 * @return 작업성공 : 1, 작업실패 : 0
 	 */
-	public int approveVac(String vacId);
+	public int approveVac(int vacId);
 }

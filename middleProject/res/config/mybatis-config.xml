@@ -11,7 +11,8 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="everyware.vo.VationsVO" alias="vacVO"/>
+		<typeAlias type="everyware.vo.VacationsVO" alias="vacVO"/>
+		<typeAlias type="everyware.vo.AttendancesVO" alias="attVO"/>
 	</typeAliases>
 	
 	<environments default="oracleEnv">
@@ -28,6 +29,7 @@
 	
 	<mappers>
 		<mapper resource="mapper/vacations-mapper.xml"/>
+		<mapper resource="mapper/attendances-mapper.xml"/>
 	</mappers>
 	
 </configuration>

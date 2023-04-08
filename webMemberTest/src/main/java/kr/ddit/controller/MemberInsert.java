@@ -59,15 +59,18 @@ public class MemberInsert extends HttpServlet {
 		String fileName =""; // 사진 이름
 		for (Part part : request.getParts()) {
 			fileName = extractFileName(part);
-			try {
-				part.write(uploadPath + File.separator + fileName);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(!"".equals(fileName)) {
+				try {
+					part.write(uploadPath + File.separator + fileName);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				memVO.setMem_photo(fileName);
 			}
 		}
 		
-		memVO.setMem_photo(fileName);
+		
 		IMemberService service = MemberServiceImpl.getInstance();
 		service.insertMember(memVO);
 		response.sendRedirect(request.getContextPath()+"/memberList.do");

@@ -12,7 +12,7 @@
 	</insert>
 	<!-- 사원별 전체 휴가 조회 -->
 	<select id="selectVacByEmp" parameterType="String" resultType="vacVO">
-		select * from vacations where emp_id = #{emp_id}
+		select vac_id, emp_id, vac_type, to_char(vac_start, 'yyyy-mm-dd') as vac_start, to_char(vac_end, 'yyyy-mm-dd') as vac_end, vac_reason from vacations where emp_id = #{emp_id}
 	</select>
 	<!-- 휴가 신청 삭제 -->
 	<delete id="deleteVac" parameterType="String">
@@ -22,12 +22,12 @@
 	
 	<!-- (관리자) 전체 사원 휴가 조회 -->
 	<select id="selectAllVac" resultType="vacVO">
-		select * from vacations order by emp_id
+		select vac_id, emp_id, vac_type, to_char(vac_start, 'yyyy-mm-dd') as vac_start, to_char(vac_end, 'yyyy-mm-dd') as vac_end, vac_reason, vac_reason from vacations order by vac_id
 	</select>
 	
 	<!-- (관리자) 사원의 휴가를 승인(update)-->
 	<update id="approveVac" parameterType="String">
-		update vacations set vac_approve ='approve' where vac_id = #{vac_id};
+		update vacations set vac_approve ='승인' where vac_id = #{vac_id};
 	</update>
 	
 </mapper>

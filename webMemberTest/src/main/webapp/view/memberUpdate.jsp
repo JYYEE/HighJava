@@ -11,15 +11,16 @@
 <%
 	MemberVO memVO = (MemberVO)request.getAttribute("memVO");
 %>
-<form action="<%=request.getContextPath() %>/memberInsert.do" method="post" enctype="multipart/form-data">
+<form action="<%=request.getContextPath() %>/memberUpdate.do" method="post" enctype="multipart/form-data">
 <h3>회원 정보 수정 폼</h3>
 <table border="1">
 	<tr>
-		<td colspan="2"><%=memVO.getMem_photo() %></td>		
+		<td colspan="2"><img alt="프로필사진" src="<%=request.getContextPath()%>/images/imageSrcView.do?fileName=<%=memVO.getMem_photo()%>"></td>	
 	</tr>
 	<tr>
 		<td>회원ID</td>
-		<td><%=memVO.getMem_id() %></td>
+		<td><%=memVO.getMem_id() %>
+		<input type="hidden" name ="memId" value="<%=memVO.getMem_id() %>"></td>
 	</tr>
 	<tr>
 		<td>비밀번호</td>
@@ -43,7 +44,7 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<input type="button" value="저장" id="save" onclick="location.href='<%=request.getContextPath() %>/memberList.do'">
+			<input type="submit" value="저장" id="save" onclick="location.href='<%=request.getContextPath() %>/memberList.do'">
 			<input type="button" value="취소" id="calcel" onclick="location.href='<%=request.getContextPath() %>/memberList.do'">
 			<input type="button" value="회원목록" id="memList" onclick="location.href='<%=request.getContextPath()%>/memberList.do'">
 		</td>		

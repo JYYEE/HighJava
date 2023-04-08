@@ -14,4 +14,6 @@ public interface IMemberService {
 	public int updateMember(MemberVO memVO);
 
 	public int deleteMember(String memId);
+	
+	public int checkId(String memId);
 }

@@ -6,15 +6,15 @@ import everyware.dao.IVactionsDao;
 import everyware.dao.VacationsDaoImpl;
 import everyware.vo.VacationsVO;
 
-public class VacationServiceImpl implements IVacationService {
+public class VacationsServiceImpl implements IVacationsService {
 	private IVactionsDao dao;
-	private static IVacationService service;
-	private VacationServiceImpl() {
+	private static IVacationsService service;
+	private VacationsServiceImpl() {
 		dao = VacationsDaoImpl.getInstance();
 	}
-	public static IVacationService getInstance() {
+	public static IVacationsService getInstance() {
 		if(service == null) {
-			service = new VacationServiceImpl();
+			service = new VacationsServiceImpl();
 		}
 		return service;
 	}
@@ -29,7 +29,7 @@ public class VacationServiceImpl implements IVacationService {
 	}
 
 	@Override
-	public int deleteVac(String vacId) {
+	public int deleteVac(int vacId) {
 		return dao.deleteVac(vacId);
 	}
 
@@ -39,7 +39,7 @@ public class VacationServiceImpl implements IVacationService {
 	}
 
 	@Override
-	public int approveVac(String vacId) {
+	public int approveVac(int vacId) {
 		return dao.approveVac(vacId);
 	}
 

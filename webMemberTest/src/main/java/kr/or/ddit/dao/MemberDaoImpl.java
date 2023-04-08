@@ -94,5 +94,20 @@ public class MemberDaoImpl implements IMemberDao {
 		}
 		return cnt;
 	}
+	@Override
+	public int checkId(String memId) {
+		SqlSession session = null;
+		int cnt = 0;
+		try {
+			session = MybatisSqlSessionFactory.getSqlSession();
+			cnt = session.selectOne("member.checkId", memId);
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			session.commit();
+			session.close();
+		}
+		return cnt;
+	}
 
 }

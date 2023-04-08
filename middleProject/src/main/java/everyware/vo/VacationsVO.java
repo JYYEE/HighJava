@@ -1,7 +1,7 @@
 package everyware.vo;
 
 public class VacationsVO {
-	private String vac_id;
+	private int vac_id;
 	private String emp_id;
 	private String vac_type;
 	private String vac_start;
@@ -21,10 +21,10 @@ public class VacationsVO {
 	public void setVac_approve(String vac_approve) {
 		this.vac_approve = vac_approve;
 	}
-	public String getVac_id() {
+	public int getVac_id() {
 		return vac_id;
 	}
-	public void setVac_id(String vac_id) {
+	public void setVac_id(int vac_id) {
 		this.vac_id = vac_id;
 	}
 	public String getEmp_id() {

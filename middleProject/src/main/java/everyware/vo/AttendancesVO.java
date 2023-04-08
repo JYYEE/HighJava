@@ -1,6 +1,6 @@
 package everyware.vo;
 
-public class AttendanceVO {
+public class AttendancesVO {
 	private String att_date;
 	private String emp_id;
 	private String att_time;

@@ -5,24 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="../js/jquery-3.6.4.min.js"></script>
 <title>Insert title here</title>
 
 <script type="text/javascript">
-<%-- $(function(){
-	/* $('#modify').on('click', function(){
-		
-	})
-	
-	$('#delete').on('click', function(){
-		
-	}) */
-	
-	$('#memList').on('click', function(){
-		location.href="<%=request.getContextPath()%>/memberList.do";
-	})
-	
-}) --%>
 </script>
 </head>
 <body>
@@ -33,7 +18,7 @@
 <h3>회원 정보 상세보기</h3>
 <table border="1">
 	<tr>
-		<td colspan="2"><%=memVO.getMem_photo() %></td>		
+		<td colspan="2"><img alt="프로필사진" src="<%=request.getContextPath()%>/images/imageSrcView.do?fileName=<%=memVO.getMem_photo()%>"></td>		
 	</tr>
 	<tr>
 		<td>회원ID</td>
@@ -57,8 +42,8 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<input type="button" value="수정" id="update" onclick="location.href='<%=request.getContextPath() %>/memberUpdate.do'">
-			<input type="button" value="삭제" id="delete" onclick="location.href='<%=request.getContextPath() %>/memberDelete.do'">
+			<input type="button" value="수정" id="update" onclick="location.href='<%=request.getContextPath() %>/memberUpdate.do?memId=<%=memVO.getMem_id()%>'">
+			<input type="button" value="삭제" id="delete" onclick="location.href='<%=request.getContextPath() %>/memberDelete.do?memId=<%=memVO.getMem_id()%>'">
 			<input type="button" value="회원목록" id="memList" onclick="location.href='<%=request.getContextPath()%>/memberList.do'">
 		</td>		
 	</tr>

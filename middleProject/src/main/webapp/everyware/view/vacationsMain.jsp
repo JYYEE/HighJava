@@ -7,13 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="page-header">
-	<h1>출근 현황</h1>
-</div>
-<div class="page-content">
-	<table border = "1">
-	
-	</table>
-</div>
+<input type="hidden" value="a001" name=empId>
+<a href="<%=request.getContextPath()%>/insertVac.do">휴가 신청</a>
+<a href="<%=request.getContextPath()%>/everyware/view/vacationList.jsp">휴가 조회</a>
+
 </body>
 </html>

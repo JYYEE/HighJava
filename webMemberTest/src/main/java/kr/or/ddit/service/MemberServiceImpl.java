@@ -40,5 +40,9 @@ public class MemberServiceImpl implements IMemberService {
 	public int deleteMember(String memId) {
 		return dao.deleteMember(memId);
 	}
+	@Override
+	public int checkId(String memId) {
+		return dao.checkId(memId);
+	}
 
 }

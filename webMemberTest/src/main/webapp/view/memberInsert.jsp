@@ -4,7 +4,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-3.6.4.min.js"></script>
 <title>Insert title here</title>
+<script type="text/javascript">
+$(function(){
+	$('#checkId').on('click', function(){
+		memId = $('#memId').val().trim();
+		$.ajax({
+			url : '<%=request.getContextPath()%>/checkId.do',
+			type : 'get',
+			data : {"memId" : memId },
+			success : function(res){
+				if( res>=1){
+					alert("중복된 아이디 입니다. 다른 아이디를 입력해주세요.")
+				} else {
+					alert("사용가능한 아이디 입니다.")
+				}
+			},
+			error : function(xhr){
+				alert("상태 : " + xhr.status + "\ncode : " + xhr.statust);
+			}
+		})
+	})
+	$('#memPassch').on('keyup', function(){
+		memPass = $('#memPass').val().trim();
+		memPassch = $(this).val().trim();
+		if(memPass == memPassch){
+			$('#memPassch').css('border', '2px solid green')
+		} else {
+			$('#memPassch').css('border', '2px solid red')
+		}
+	})
+})
+
+</script>
 </head>
 <body>
 <h3>회원정보 입력 폼</h3>
