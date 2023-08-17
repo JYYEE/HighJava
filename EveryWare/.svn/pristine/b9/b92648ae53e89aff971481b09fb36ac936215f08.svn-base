@@ -1,0 +1,90 @@
+$.scheduleList = function() {
+	$.ajax({
+		url : `${mypath}/SelectList.do`,
+		type : "get",
+		success : function(res) {
+			today = new Date();
+			
+			code = "<table>";
+			$.each(res, function(i,v) {
+				/*if(i < 3) {*/
+					target = new Date(v.sch_startdate);
+					lefttime = target.getTime() - today.getTime();
+
+					dday = Math.ceil(lefttime / 1000 / 60 / 60 / 24);
+					if (dday == 0) {
+						dday = "Day";
+					}
+					code += `<tr><td>${v.sch_name}</td><td style="color: red;">D-${dday}</td></tr>`;
+				/*}*/
+			})
+			code += "</table>";
+			$('#schedulediv').empty();
+			$('#schedulediv').append(code);
+		},
+		error : function(xhr) {
+			alert(xhr.status);
+		},
+		dataType : "json"
+	})
+}
+
+$.scheduletoday = function() {
+	$.ajax({
+		url : `${mypath}/scheduletoday.do`,
+		type : "get",
+		success: function(res) {
+			console.log(res);
+			today = new Date();
+			month = today.getMonth()+1;
+			date = today.getDate();
+			
+			code = `<span>${month}월 ${date}일</span>`;
+			code1 = "";
+			if(res.length == 0) {
+				code1 += `<span>오늘은 일정이 없습니다.</span>`;			
+			} else {
+				code1 += `<ul>`;
+				$.each(res, function(i,v) {
+					if(i < 3) {
+						code1 += `<li>${v.sch_name}</li>`
+					}
+				})
+				code1 += `</ul>`;
+			}
+			$('#mydate').empty();
+			$('#scheduletoday').empty();
+			
+			$('#mydate').append(code);			
+			$('#scheduletoday').append(code1);
+		},
+		error : function(xhr) {
+			alert(xhr.status);
+		},
+		dataType: "json"
+	})
+}
+
+$.documentList = function(){
+   $.ajax({
+      url : `${mypath}/documentList.do`,
+      type : "post",
+      data : { "menu" : 'approval',
+                   "sStateType" : '진행중' },
+      success: function(res) {
+         
+         code = `<table><tr><td>제목</td><td>기안자</td><td>기안일자</td></tr>`;
+         $.each(res, function(i,v) {
+            if(i < 3) {
+               code += `<tr><td id="${mypath}/selectDoc.do?id=${v.doc_id}">${v.doc_title}</td><td>${v.emp_name}</td><td>${v.doc_date}</td></tr>`;
+            }
+         })
+         code += "</table>";
+         $('#approvediv').append(code);
+      },
+      error : function(xhr) {
+         alert(xhr.status);
+      },
+      dataType: "json"
+   })
+}

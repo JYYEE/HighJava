@@ -1,0 +1,63 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="../css/mypagemodal.css">
+<script src="../js/jquery-3.6.4.min.js"></script>
+
+<script type="text/javascript">
+ $(function(){
+	$("#logout").click(function(){
+		window.location.href = "<%=request.getContextPath()%>/project/LoginPage.jsp";
+		
+	})
+	
+	$("#mypage").click(function(){
+		$.MovePage("<%=request.getContextPath()%>/mypage/myinfo.jsp");
+      <%--   <%session.invalidate();%> --%>
+	})
+	}) 
+</script>
+
+<style type="text/css">
+#logout, #mypage {
+	background: orange;
+	width: 100%;
+	border-radius: 5px;
+	color: white;
+	font-size: 21;
+	font-weight: blod;
+	height: 44px;
+	margin-top: 20px;
+}
+
+.mypage-bot {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 10px;
+	padding: 10px;
+	background-color: #007bff;
+	color: white;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+</style>
+</head>
+<body>
+	<a><span class="icon"><ion-icon name="person-circle-outline"
+				id="mypagebtn"></ion-icon></span></a>
+	<div class="mypage" id="mypage-modal" style="height: 240px">
+		<div class="mypage-header"></div>
+		<div class="mypage-body" id="mypageBody">
+			<button id="mypage">마이 페이지</button>
+			<button id="logout">로그아웃</button>
+		</div>
+		<div class="mypage-bot"></div>
+	</div>
+</body>
+</html>

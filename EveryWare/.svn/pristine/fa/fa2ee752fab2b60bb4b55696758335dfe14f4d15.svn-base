@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 이 문서는 mybatis에서 처리할 SQL문을 작성하는 문서입니다... -->
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="vac">
+	<!-- 휴가 신청 -->
+	<insert id="insertVac" parameterType="vacVO">
+		insert into vacations(VAC_ID, EMP_ID, VAC_TYPE, VAC_START, VAC_END, VAC_REASON) 
+		values(vac_id_seq.nextval, #{emp_id}, #{vac_type}, #{vac_start}, #{vac_end} , #{vac_reason})
+	</insert>
+	<!-- 사원별 전체 휴가 조회 -->
+	<select id="selectVacByEmp" parameterType="String" resultType="vacVO">
+		select vac_id, emp_id, vac_type, to_char(vac_start, 'yyyy-mm-dd') as vac_start, to_char(vac_end, 'yyyy-mm-dd') as vac_end, vac_reason, vac_approve from vacations where emp_id = #{emp_id} order by vac_id desc
+	</select>
+	<!-- 휴가 신청 삭제 -->
+	<delete id="deleteVac" parameterType="int">
+		delete from vacations where vac_id=#{vac_id}
+	</delete>
+	
+	<!-- (관리자) 전체 사원 휴가 조회 -->
+	<select id="selectAllVac" resultType="vacVO">
+		select vac_id, emp_id, vac_type, to_char(vac_start, 'yyyy-mm-dd') as vac_start, to_char(vac_end, 'yyyy-mm-dd') as vac_end, vac_reason, vac_approve from vacations order by vac_approve desc, vac_start desc, vac_id desc
+	</select>
+	
+	<!-- (관리자) 사원의 휴가를 승인(update)-->
+	<update id="approveVac" parameterType="int">
+		update vacations set vac_approve ='승인' where vac_id = #{vac_id}
+	</update>
+	
+	<!-- 사원의 잔여 연차일 계산 -->
+	<update id="updateRemainVac" parameterType="map">
+		update employees set emp_remain_vac = emp_remain_vac - #{vacTotal} 
+		where emp_id = (select emp_id from vacations where vac_id =#{vacId})
+	</update>
+	
+	<!-- 휴가 아이디로 휴가 조회 -->
+	<select id="selectVacByVacId" parameterType="int" resultType="vacVO">
+		select * from vacations where vac_id=#{vac_id}
+	</select>
+	
+</mapper>

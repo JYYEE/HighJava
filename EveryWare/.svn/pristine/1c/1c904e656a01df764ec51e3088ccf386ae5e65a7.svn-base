@@ -1,0 +1,28 @@
+@charset "UTF-8";
+body {
+    margin: 40px 10px;
+    padding: 0;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 14px;
+  }
+
+  #calendar {
+    max-width: 900px; 
+    margin: 0 auto;
+  }
+.fc-toolbar-chunk #fc-dom-1{ 
+	display : inline;
+}
+
+.page-header .att-cal{
+	font-size: calc(1.325rem + .9vw);
+	margin-left: 6px;
+}
+.page-header hr{
+	height: 1px;
+	background: lightgray;
+	border: 0;
+}
+.page-header, .page-content{
+	max-width : 80%;
+}

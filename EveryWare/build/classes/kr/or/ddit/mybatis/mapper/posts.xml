@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="posts">
+
+
+	<select id="getAllPosts" resultType="postsVo">
+		select
+		post_id,
+		board_id,
+		emp_id,
+		post_title,
+		post_content,
+		to_char(post_date,'yyyy-mm-dd') AS post_date,
+		post_cnt,
+		post_subtitle,
+		post_no
+		FROM posts
+		where post_no = 1
+		order by post_date desc
+	</select>
+
+	<select id="getfreePosts" resultType="postsVo">
+		select
+		post_id,
+		board_id,
+		emp_id,
+		post_title,
+		post_content,
+		to_char(post_date,'yyyy-mm-dd') AS post_date,
+		post_cnt,
+		post_subtitle,
+		post_no
+		FROM posts
+		where post_no = 0
+		order by post_date desc
+	</select>
+
+	<update id="updateCnt" parameterType="int">
+		update posts set POST_CNT = POST_CNT+1 where POST_ID = #{post_id}
+	</update>
+
+	<insert id="insertPost" parameterType="postsVo">
+		insert into posts(
+		POST_ID,
+		BOARD_ID,
+		EMP_ID,
+		POST_TITLE,
+		POST_CONTENT,
+		POST_SUBTITLE,
+		POST_NO
+		) VALUES( POST_SEQ.nextval , #{board_id}, #{emp_id} ,#{post_title},
+		#{post_content}, #{post_subtitle}, 1 )
+	</insert>
+
+	<insert id="insertFree" parameterType="postsVo">
+		insert into posts(
+		POST_ID,
+		BOARD_ID,
+		EMP_ID,
+		POST_TITLE,
+		POST_CONTENT,
+		POST_SUBTITLE,
+		POST_NO
+		) VALUES( POST_SEQ.nextval , #{board_id}, #{emp_id} ,#{post_title},
+		#{post_content}, #{post_subtitle}, 0 )
+	</insert>
+
+	<delete id="deletePost" parameterType="int">
+		DELETE FROM posts WHERE POST_ID = #{data}
+	</delete>
+
+	<update id="updatePost" parameterType="postsVo">
+		UPDATE posts SET post_title = #{post_title}, post_subtitle =
+		#{post_subtitle},post_content = #{post_content} where post_id =
+		#{post_id}
+	</update>
+
+
+</mapper>

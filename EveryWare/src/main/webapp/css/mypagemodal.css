@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+/* 알림 모달 */
+#mypage-modal {
+	position: fixed;
+	top: 75px;
+	right: 50px;
+	padding: 10px;
+	width: 350px;
+	height: 525px;
+	overflow: auto;
+	z-index: 11;
+	background-color: white;
+	border: 2px solid #f1f1f1;
+	border-radius: 20px;
+	display: none;
+}
+
+/* 알림 제목 */
+.mypage-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	
+	padding: 10px;
+	background-color: #007bff;
+	color: white;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+}
+
+/* 알림 내용 */
+.mypage-body {
+	padding: 10px;
+}

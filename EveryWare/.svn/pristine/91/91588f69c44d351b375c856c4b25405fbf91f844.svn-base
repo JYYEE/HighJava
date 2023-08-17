@@ -1,0 +1,101 @@
+'use strict';
+
+let myLat = 0, myLon = 0;
+
+//위치값 받아오기
+if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(function(position) {
+		myLat = position.coords.latitude;
+		myLon = position.coords.longitude;
+		getWeather(myLat, myLon);
+	});
+}
+
+function changeIcon(data) {
+/*	if (data === "01d") {
+		$('.rightcolumn #weatherdiv').css('background-image', "url('https://source.unsplash.com/PEm_sLmJT-w/1600x900')");
+	} else if (data === '03d') {
+		$('.rightcolumn #weatherdiv').css('background-image', "url('https://source.unsplash.com/78wDBw9ajUk/1600x900')");
+	} else if (data === '09d' || data === '10d') {
+		$('.rightcolumn #weatherdiv').css('background-image', "url('https://source.unsplash.com/22x7fxFpl_8/1600x900')");
+	} else if (data === '13d') {
+		$('.rightcolumn #weatherdiv').css('background-image', "url(snowflakes-554635_1920.jpg)");
+	} else if (data === '11d') {
+		$('.rightcolumn #weatherdiv').css('background-image', "url('https://source.unsplash.com/jh2KTqHLMjE/1600x900')");
+	} else {
+		$('.rightcolumn #weatherdiv').css('background-image', "url('https://source.unsplash.com/v9bnfMCyKbg/1600x900')");
+	}*/
+}
+
+function getWeather(lat, lon) {
+	const url = "https://api.openweathermap.org/data/2.5/forecast";
+	const apikey = "059d1d499acd3fd20ce144a04049e811";
+	let mydata;
+	mydata = {
+		lat: lat,
+		lon: lon,
+		appid: apikey,
+		units: 'metric',
+		lang: 'kr'
+	}
+
+	let params = Object.keys(mydata).map(key => key + '=' + mydata[key]).join('&');
+
+	fetch(`${url}?${params}`)
+		.then(result => result.json())
+		.then(rs => {
+			//console.log(rs);
+			drawWeather(rs);
+			//console.log(rs.list[0].weather[0].icon);
+			//rs의 list 0번째가 현재 시각에서 제일 가까운 시각으로 잡힌다.
+			function drawWeather(rs) {
+				let nowTime = new Date(rs.list[0].dt * 1000); //유닉스타임을 시간으로 변환하는 방법
+				let nowtemp = rs.list[0].main.temp.toFixed(0);
+				let maxtemp = rs.list[0].main.temp_max.toFixed(0);
+				let mintemp = rs.list[0].main.temp_min.toFixed(0);
+				let wind = rs.list[0].wind.speed.toFixed(1);
+				let feels_like = rs.list[0].main.feels_like.toFixed(0);
+				//changeIcon(rs.list[0].weather[0].icon);
+				changeIcon('09d');
+
+				document.getElementById('city').innerHTML = rs.city.name;
+				document.getElementById('ntime').innerHTML = `${nowTime.getMonth() + 1}월 ${nowTime.getMonth() + 1}일`;
+				document.getElementById('icon').src = "../weather/img/" + rs.list[0].weather[0].icon + ".png";
+				document.getElementById('icon').alt = rs.list[0].weather[0].icon;
+				document.getElementById('nowtemp').innerHTML = nowtemp + '&deg;';
+				document.getElementById('maxmintemp').innerHTML = maxtemp + '&deg;' + ' / ' + mintemp + '&deg;';
+				document.getElementById('desc').innerHTML = rs.list[0].weather[0].description;
+				document.getElementById('clouds').innerHTML = rs.list[0].clouds.all + '&#37;';
+				document.getElementById('wind').innerHTML = wind + ' m/s';
+				document.getElementById('humidity').innerHTML = rs.list[0].main.humidity + '&#37;';
+				document.getElementById('feels_like').innerHTML = feels_like + '&deg;';
+			}
+
+
+			let html = "";
+			for (let i in rs.list) {
+				if (i < 14) {
+					let dayTime = new Date(rs.list[i].dt * 1000);
+					let dayDate = dayTime.getDate() + '일 ' + dayTime.getHours() + '시';
+					let maxtemp = rs.list[i].main.temp_max.toFixed(0);
+					let mintemp = rs.list[i].main.temp_min.toFixed(0);
+
+						if (dayTime.getHours() % 6 == 0) {
+						html += `<li>
+                  				 	<div class="dayWeather">
+                     					<p class="daydate">${dayDate}</p>
+                     					<img src="../weather/img/${rs.list[i].weather[0].icon}.png" alt="${rs.list[i].weather[0].icon}">
+                     					<p class="daytemp">${maxtemp}&deg;/ ${mintemp}&deg;</p>
+                     					<p class="daydesc">${rs.list[i].weather[0].description}</p>
+                  					</div>
+              					</li>`;
+					}
+				}
+			}
+			document.getElementById('swiper').innerHTML = html;
+		});
+}
+
+
+
+

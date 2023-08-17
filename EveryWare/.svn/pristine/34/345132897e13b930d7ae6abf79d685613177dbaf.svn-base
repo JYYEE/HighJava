@@ -1,0 +1,70 @@
+function changeIconn(data) {
+	if(data == "01") {
+		$('#weathermodal').css('background-image', "url('https://source.unsplash.com/PEm_sLmJT-w/1600x900')");
+	} else if(data == '03') {
+		$('#weathermodal').css('background-image', "url('https://source.unsplash.com/78wDBw9ajUk/1600x900')");
+	} else if(data == '09' || data == '10') {
+		$('#weathermodal').css('background-image', "url('https://source.unsplash.com/22x7fxFpl_8/1600x900')");
+	} else if(data == '13') {
+		$('#weathermodal').css('background-image', "url(snowflakes-554635_1920.jpg)");
+	} else if(data == '11') {
+		$('#weathermodal').css('background-image', "url('https://source.unsplash.com/jh2KTqHLMjE/1600x900')");
+	} else {
+		$('#weathermodal').css('background-image', "url('https://source.unsplash.com/v9bnfMCyKbg/1600x900')");
+	}
+}
+
+var weatherIcon = {
+    '01' : 'fas fa-sun',
+    '02' : 'fas fa-cloud-sun',
+    '03' : 'fas fa-cloud',
+    '04' : 'fas fa-cloud-meatball',
+    '09' : 'fas fa-cloud-sun-rain',
+    '10' : 'fas fa-cloud-showers-heavy',
+    '11' : 'fas fa-poo-storm',
+    '13' : 'far fa-snowflake',
+    '50' : 'fas fa-smog'
+};
+
+
+function $openweather2(lat, lon) {
+	var apiURI = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=059d1d499acd3fd20ce144a04049e811";
+	$.ajax({
+	    url: apiURI,
+	    dataType: "json",
+	    type: "GET",
+	    async: "false",
+	    success: function(resp) {
+			//console.log(resp);
+	        
+	        var $Icon = (resp.weather[0].icon).substr(0,2);
+	        //console.log($Icon);
+	        var $Temp = Math.floor(resp.main.temp- 273.15) + '°C';
+	        var $humidity = resp.main.humidity+ '%';
+	        var $wind = resp.wind.speed + 'm/s';
+	        var $city = '대전';
+	        var $cloud = resp.clouds.all +"%";
+	        var $temp_min = Math.floor(resp.main.temp_min- 273.15) + '°C';
+	        var $temp_max = Math.floor(resp.main.temp_max- 273.15) + '°C';
+	
+			changeIconn($Icon);
+	
+	        $('#weathericon').append('<i class="' + weatherIcon[$Icon] +' fa-5x" style="height : 40px; width : 40px; z-index: 5;"></i>');
+	        $('#temp').text($Temp);
+	        $('#country').text($city);
+	        $('#maxmintemp').text($temp_max + " / " + $temp_min);
+	        $('#humidity').text($humidity);
+	        $('#wind').text($wind);
+	        $('#cloudy').text($cloud);
+	    }
+	})
+}
+
+if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(function(position) {
+		myLat = position.coords.latitude;
+		myLon = position.coords.longitude;
+		//console.log(myLat, myLon);
+		$openweather2(myLat, myLon);
+	});
+}

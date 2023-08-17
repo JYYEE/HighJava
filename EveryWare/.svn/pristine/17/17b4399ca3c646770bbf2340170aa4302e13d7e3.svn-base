@@ -1,0 +1,144 @@
+<%@page import="groupware.emp.vo.EmployeesVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/vac/css/vac.css">
+<script src='<%=request.getContextPath() %>/vac/js/vacations.js' type="text/javascript"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/vac/js/jquery-3.6.4.min.js"></script>
+<script>
+$(function(){
+	vsi = $('<tr><td>추가</td><td>병가</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>');
+	vso = $('<tr><td>추가</td><td>예비군/민방위</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>');
+	$.ajax({
+		url : '<%=request.getContextPath()%>/Vacations/manage',
+		type : 'post',
+		success : function(res){
+			console.log(res)
+			var vacationList = response.vacationList;
+		      var vacationCount = {};
+		      for (var i = 0; i < vacationList.length; i++) {
+		        var startDate = new Date(vacationList[i].vac_start);
+		        var endDate = new Date(vacationList[i].vac_end);
+		        var months = getMonthsBetween(startDate, endDate);
+		        for (var j = 0; j < months.length; j++) {
+		          var month = months[j];
+		          var businessDays = getBusinessDays(startDate, endDate);
+		          if (vacationCount[month] === undefined) {
+		            vacationCount[month] = businessDays;
+		          } else {
+		            vacationCount[month] += businessDays;
+		          }
+		        }
+		      }
+		      // 각 월별 휴가 사용 횟수 출력
+		      for (var month in vacationCount) {
+		        console.log(month + "에 사용한 휴가 일수: " + vacationCount[month]);
+		        
+		      } 
+		},
+		
+		error : function(xhr){
+			alert('상태 : ' + xhr.status + "\ncode : " +xhr.statust);	
+		},
+		dataType : 'json'
+	})
+})
+</script>
+</head>
+<body>
+<%
+	EmployeesVO vo = (EmployeesVO)session.getAttribute("userVO");
+	String empid = vo.getEmp_id();
+	String empdate = vo.getEmp_date();
+	int emprevac = vo.getEmp_remain_vac();
+
+%>
+	<div class="page-header">
+		<br>
+		<input type="button" name="insert" class="vac-btn" value="휴가 신청" onclick="location.href='<%=request.getContextPath()%>/vac/vacationInsert.jsp'">
+		<span><input type="button" id="vacChk" class="vac-btn" value="휴가 사용 내역" onclick="location.href='<%=request.getContextPath()%>/Vacations'"></span>
+		<h2>휴가관리대장</h2>
+	</div>
+	<hr>
+	<div class="page-content">
+		<div>
+			<label>입사일</label>
+			<input type="text" value="<%=empdate%>" disabled>
+		</div>
+		<div>
+			<label></label>
+			<table border="1">
+				<thead>
+					<tr>
+						<th rowspan="2">유형</th>
+						<th rowspan="2">휴가별</th>
+						<th rowspan="2">일수</th>
+						<th colspan="12">사용일수</th>
+						<th rowspan="2">잔여일수</th>
+					</tr>
+					
+					<tr>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>5</td>
+						<td>6</td>
+						<td>7</td>
+						<td>8</td>
+						<td>9</td>
+						<td>10</td>
+						<td>11</td>
+						<td>12</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr id="vac-man-an">
+						<td>기본</td>
+						<td>연차</td>
+						<td><%=emprevac %></td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td><%=emprevac %></td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr id="vac-man-to">
+						<td colspan="2">총계</td>
+						<td><%=emprevac %></td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td><%=emprevac %></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		<div></div>
+	</div>
+	
+</body>
+</html>

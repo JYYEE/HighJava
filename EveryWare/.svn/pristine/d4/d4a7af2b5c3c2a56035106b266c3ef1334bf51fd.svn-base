@@ -1,0 +1,50 @@
+package everyware.vac.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+
+import everyware.vac.service.IVacationsService;
+import everyware.vac.service.VacationsServiceImpl;
+import everyware.vac.vo.VacationsVO;
+
+@WebServlet("/Vacations/selectVac")
+public class SelectVacByEmp extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		
+		String empId = (String)request.getAttribute("empId");
+		//System.out.println(empId);
+		IVacationsService service = VacationsServiceImpl.getInstance();
+		List<VacationsVO> vacList = service.selectVacByEmp(empId);
+		
+		request.setAttribute("empId", empId);
+		request.setAttribute("vacList", vacList);
+		
+		
+		
+		request.getRequestDispatcher("/everyware/view/vacationList.jsp").forward(request, response);
+		
+		
+		/*
+		 * manager 버전
+		 * Gson gson = new Gson();
+		String vacList = gson.toJson(vacList);
+		//System.out.println(vacList);
+		response.getWriter().write(vacList);
+		response.flushBuffer();
+		 */
+	}
+
+}

@@ -1,0 +1,54 @@
+$.scheduleList = function() {
+	$.ajax({
+		url : `${mypath}/SelectList.do`,
+		type : "get",
+		success : function(res) {
+			today = new Date();
+			
+			code = "<table>";
+			$.each(res, function(i,v) {
+				/*if(i < 3) {*/
+					target = new Date(v.sch_startdate);
+					lefttime = target.getTime() - today.getTime();
+
+					dday = Math.ceil(lefttime / 1000 / 60 / 60 / 24);
+					if (dday == 0) {
+						dday = "Day";
+					}
+					code += `<tr><td>${v.sch_name}</td><td style="color: red;">D-${dday}</td></tr>`;
+				/*}*/
+			})
+			code += "</table>";
+			$('#schedulediv').append(code);
+		},
+		error : function(xhr) {
+			alert(xhr.status);
+		},
+		dataType : "json"
+	})
+}
+
+$.scheduletoday = function() {
+	$.ajax({
+		url : `${mypath}/scheduletoday.do`,
+		type : "get",
+		success: function(res) {
+			console.log(res);
+			today = new Date();
+			date = today.getDate();
+			
+			code1 = `<table><tr><td colspan='2' style="color: red;">${date}일</td></tr>`;
+			$.each(res, function(i,v) {
+				if(i < 3) {
+					code1 += `<tr><td colspan='2'>${v.sch_name}</td></tr>`;
+				}
+			})
+			code1 += "</table>";
+			$('#scheduletoday').append(code1);
+		},
+		error : function(xhr) {
+			alert(xhr.status);
+		},
+		dataType: "json"
+	})
+}

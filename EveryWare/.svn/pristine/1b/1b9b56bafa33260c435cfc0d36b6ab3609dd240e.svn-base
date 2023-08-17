@@ -1,0 +1,87 @@
+<%@page import="groupware.emp.vo.EmployeesVO"%>
+<%@page import="java.time.LocalDate"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Vacation</title>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/vac/css/vac.css">
+<script type="text/javascript" src="<%=request.getContextPath()%>/vac/js/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+<% 
+EmployeesVO vo = (EmployeesVO) session.getAttribute("userVO");%>
+empid = '<%=vo.getEmp_id()%>' 
+console.log(empid)
+
+$(function(){
+	
+if( <%=request.getAttribute("result")%> == "1"){
+	alert("휴가가 신청되었습니다.");
+} 
+if( <%=vo.getEmp_remain_vac() %> == 0){
+	$('#vacSub').prop('disabled', true);
+}
+
+/* $('#vacType').change(function(){
+    if($(this).val() == 'main'){
+      $('#vacSub').prop('disabled', true);
+    } else {
+      $('#vacSub').prop('disabled', false);
+    }
+  })*/
+}) 
+</script>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="page-header">
+	<br>
+	<span><input type="button" id="vacChk" class="vac-btn" value="휴가 사용 내역" onclick="location.href='<%=request.getContextPath()%>/Vacations'"></span>
+	<span><input type="button" id="vacMng" class="vac-btn" value="휴가 관리 대장" onclick="location.href='<%=request.getContextPath()%>/vac/vacationManager.jsp'"></span>
+		<h2>휴가신청</h2>
+		<hr>
+	</div>
+		<form action="<%=request.getContextPath() %>/Vacations/insertVac" method="post">
+		<table border="1" id="vac-form">
+		<thead>
+			<tr>
+				<th><label class="vac-menu">휴가 종류</label></th> 
+				<td>
+					<select name="vacType" id="vacType">
+					<option value="main" selected disabled>선택하세요</option>
+					<option value="연차">연차 /<%=vo.getEmp_remain_vac() %> </option>
+					<option value="예비군/민방위">예비군/민방위</option>
+					<option value="병가">병가</option>
+					</select>
+				</td>
+			</tr>	
+		</thead>
+		<tbody>
+			<tr>
+				<th><label class="vac-menu">휴가 일자</label></th> 
+				<td><input type="date" id="vacStart" name="vacStart" value=<%=LocalDate.now()%>> ~ <input type="date" id="vac-end" name="vacEnd" value=<%=LocalDate.now()%>></td>
+			</tr>
+			<tr>
+				<th><label class="vac-menu vac-textarea" for="vac-reason"><span id="vac-rea-lab">사유<br>(30자 내외)</span></label></th>
+				<td><textarea name="vacReason" rows="8" cols="50"></textarea></td>
+			</tr>
+			<tr>
+				<th><label class="vac-menu vac-textarea" for="vac-approver"><span id="vac-app-lab">휴가 승인자<input type="button" value="조직도"></span></label></th>
+				<td><textarea name="vacApprove" rows="10" cols="50"></textarea></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="2" class="btn-zone" >
+					<span><input type="submit" id="vacSub" class="vac-btn" value="휴가 신청"></span>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+	</form>
+</body>
+</html>

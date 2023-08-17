@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 이 문서는 mybatis에서 처리할 SQL문을 작성하는 문서입니다. -->
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<!-- <mapper>태그의 namespace속성은 Java소스에서 실행할 SQL문을 호출할 때 같이 사용되는 이름이다. -->
+<mapper namespace="mypage">
+
+	<!-- 접속이력 조회 -->
+	<select id="selectLogList" parameterType="string" resultType="logVo">
+			select rownum as rnum, a.*
+			from (select log_id, log_ip, log_browser,
+									 to_char(log_time, 'yyyy-mm-dd hh24:mi:ss') as log_time
+							from login_log
+						 where emp_id = #{emp_id}
+						order by log_time desc) a
+	</select>
+	
+	<!-- 모든 알림 조회 -->
+	<!-- <select id="selectAlarmList" parameterType="map" resultType="alarmVo">
+			select alarm_id, alarm_type, alarm_status, alarm_url,
+									 to_char(alarm_date, 'yyyy-mm-dd') as alarm_date
+				from alarm
+			where emp_id = #{emp_id}
+			order by alarm_id desc
+	</select> -->
+	
+	<!-- 알림삭제 -->
+	<!-- <delete id="deleteAlarm"></delete> -->
+	
+	<!-- 내 서명 변경 -->
+	<!-- <update id="updateSign" parameterType="map">
+		update employees
+		set emp_signature = #{file}
+		where emp_id = #{emp_id}
+	</update> -->
+	
+	<!-- 내 정보 변경 -->
+	<update id="updateMyInfo" parameterType="empVo">
+		update employees
+		set emp_tel = #{emp_tel}, emp_addr = #{emp_addr}
+		where emp_id = #{emp_id}
+	</update>
+</mapper>

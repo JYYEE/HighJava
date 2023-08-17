@@ -1,0 +1,352 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+}
+
+.insert-doc-main {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	/* border: 1px solid red; */
+}
+
+.container-wrap {
+	width: 475px;
+	display: flex;
+	flex-direction: column;
+	margin: auto 20px auto 20px;
+}
+
+.container-form {
+	width: 750px;
+}
+
+.emp-select-box, .dept-select-box {
+	border: 1px solid lightgray;
+	margin: 10px 0px;
+	border-radius: 4px;
+	height: 320px;
+	box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.container {
+	width: 99%;
+	height: 93%;
+	display: flex;
+	flex-direction: row;
+	padding: 10px;
+}
+
+.select {
+	width: 49%;
+	padding: 10px;
+	overflow: auto;
+}
+
+.selected-approval {
+	width: 49%;
+	display: flex;
+	flex-direction: row;
+}
+
+.button-wrap {
+	margin: auto 0px;
+}
+
+.emp-name {
+	margin-left: 5px;
+}
+
+.emp-icon {
+	content: url("./emp.png");
+	width: 20px;
+	opacity: 0.7;
+}
+
+.team-icon {
+	content: url("./team.png");
+}
+
+table {
+	width: 99%;
+	margin: 0px auto;
+}
+
+input[type=text] {
+	width: auto;
+	height: 1.5em;
+}
+
+td {
+	height: 80px;
+}
+
+.select-box {
+	width: 90%;
+}
+
+.select-dept li {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 2px;
+}
+
+.select-dept .dept-name {
+	margin-left: 8px;
+}
+/* Remove default bullets */
+ul, .dept {
+	list-style-type: none;
+}
+/* Remove margins and padding from the parent ul */
+.dept {
+	margin: 0;
+	padding: 0;
+}
+/* Style the caret/arrow */
+.dept-name {
+	cursor: pointer;
+	user-select: none; /* Prevent text selection */
+	vertical-align: top;
+}
+/* Create the caret/arrow with a unicode, and style it */
+.select-emp .dept-name::before {
+	/*  content: "\1F4C1"; */
+	content: url("./folder_plus.png");
+	color: black;
+	display: inline-block;
+	margin-right: 6px;
+	position: relative;
+	top: 3px;
+	opacity: 0.8;
+}
+/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+.select-emp .dept-name-down::before {
+	content: url("./folder_minus.png");
+}
+/* Hide the nested list */
+.emp {
+	display: none;
+}
+/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+.active {
+	display: block;
+}
+
+.element {
+	cursor: pointer;
+	display: block;
+}
+
+.selected {
+	background: #00ef5f40;
+}
+/* /* Modal */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 200px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: hsla(0, 0%, 100%, .8); /* Fallback color */
+	background-color: hsla(0, 0%, 100%, .8); /* Black w/ opacity */
+}
+
+.modal-content {
+	width: 35%;
+	background-color: #fefefe;
+	margin: auto;
+	border: 1px solid lightgray;
+	padding-top: 7px;
+	padding-left: 14px;
+	padding-right: 14px;
+	padding-bottom: 14px;
+	box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+	color: #04AA6D99;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	opacity: 1;
+}
+
+.close:hover, .close:focus {
+	color: #00894F;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.temp-caption {
+	font-size: 1.5em;
+	font-weight: 500;
+	margin-left: 10px;
+	margin-bottom: 5px;
+}
+
+.modal-content-container {
+	margin: 35px 0px;
+}
+
+.emp-container {
+	display: flex;
+	flex-direction: row;
+}
+
+.dept li {
+	vertical-align: text-top;
+}
+
+.emp-select-header, .dept-select-header {
+	background-image: linear-gradient(109.6deg, rgba(61, 245, 167, 1) 11.2%,
+		rgba(9, 111, 224, 1) 91.1%);
+	height: 30px;
+	color: white;
+	font-weight: 500;
+	padding-top: 4px;
+	padding-left: 10px;
+	opacity: 0.9;
+}
+
+.select-emp, .selected-approval, .select-dept, .selected-recipients {
+	height: 99%;
+	/* border: 1px solid red; */
+	width: 49%;
+}
+
+.selected-box {
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+}
+
+.button-wrap span {
+	border: 1px solid lightgray;
+	border-radius: 4px;
+	display: inline-block;
+	width: 20px;
+	text-align: center;
+	background-color: white;
+	color: gray;
+	cursor: pointer;
+	margin: 1px;
+}
+
+.button-wrap span:hover {
+	background-color: #ddd;
+}
+
+input[name=title] {
+	border: 1px solid lightgray;
+	width: 560px;
+	height: 35px;
+}
+
+.selected-box span {
+	padding: 2px;
+	border-radius: 4px;
+}
+
+.line {
+	border-left: 1px solid #ababab;
+}
+
+.select-box .tree.dept-name.element:hover {
+	background: #F3F3F3;
+}
+
+.tree.emp-name.element:hover {
+	background: #F3F3F3;
+}
+
+.end-btn-wrap {
+	display: inline;
+}
+
+.save-btn-wrap {
+	margin-left: 10px;
+	cursor: pointer;
+	border-radius: 5px;
+	padding: 6px 0px;
+	background-color: #D3ECDC;
+	display: inline-block;
+	width: 95px;
+	box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+	height: 34px;
+}
+
+.upload-btn {
+	cursor: pointer;
+	border-radius: 5px;
+	padding: 5px 19px;
+	display: block;
+	text-align: center;
+	background-color: #04AA6D;
+	color: #ffffff;
+	margin-top: 10px;
+	box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.save-btn {
+	display: inline-block;
+	color: #333;
+	width: 50px;
+	text-align: right;
+	padding-right: 5px;
+}
+
+.temp-count-btn {
+	border-left: 1px solid #ababab;
+	display: inline-block;
+	width: 35px;
+	text-align: left;
+	padding-left: 13px;
+}
+
+.form-header {
+	margin: 5px 0px;
+}
+
+.form-header label {
+	padding: 0px 10px;
+}
+
+.temp-list {
+	cursor: pointer;
+	padding: 0px;
+}
+
+.temp-item {
+	cursor: point;
+	border-top: 1px solid #e3e2e2;
+	padding: 17px 25px;
+}
+
+.temp-item:hover {
+	background: #F6F6F6;
+}
+
+.temp_date {
+	font-size: 0.9em;
+	color: gray;
+}
+
+.temp-delete-btn {
+	display: none;
+	cursor: pointer;
+	float: right;
+	bottom: 19px;
+	position: relative;
+	color: #c5c3c3;
+	font-size: 22px;
+}
+
+.temp-delete-btn:hover {
+	color: gray;
+}

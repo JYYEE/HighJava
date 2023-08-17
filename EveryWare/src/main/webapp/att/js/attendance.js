@@ -1,0 +1,143 @@
+/**
+ * 근태 관련 js
+ */
+// 날짜 형식 '2023년 4월 14일' -> '2023-04-14' 바꾸기
+$.formatDate = function(data){ 
+  const date = new Date(data.replace(/년|월/g, '-').replace(/일/g, ''));
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  const monthString = month < 10 ? `0${month}` : `${month}`;
+  const dayString = day < 10 ? `0${day}` : `${day}`;
+
+  return `${year}-${monthString}-${dayString}`;
+}
+
+// 전체 근태내역
+$.selectAllAttList = function() {
+	$.ajax({
+		url: `${path}/Attendances/selectAllAtt`,
+		type: 'post',
+		dataType: 'json',
+		success: function(res) {
+			evts = [];
+			if(res.length == 0){
+				cal(res);
+			} 
+			$.each(res, function(i, v) {
+				atts = v.att_date.split(' ');
+				if(!('att_time' in v)){
+					start = atts[0]+'T'+'09:00:59';			
+				} else{
+					start = atts[0] + 'T' + v.att_time;
+				}
+				state = v.att_state;
+				empId = v.emp_id;
+				point = "";
+				if (state == "정상") {
+					point = '#0054FF'; // 파란색
+				} else if (state == "지각") {
+					point = '#FFE400'; // 노란색
+				} else if (state == "연차") {
+					point = '#FF007F';	// 분홍색
+				} else if (state == "병가") {
+					point = '#b342f5';	// 분홍색
+				}	else if (state == "예비군/민방위") {
+					point = '#257e4a';	// 분홍색
+				}	
+				evt = {
+					"title": empId + " " + state, // json타입으로 만들기 위해서 "" 필수!!!
+					"start": start,
+					"color": point
+				}
+				evts.push(evt);
+				cal(evts)
+				
+			})
+
+		},
+		error: function(xhr) {
+			alert("상태 : " + xhr.status + "\ncode : " + xhr.statust)
+		}
+	})
+}
+
+// 사원별 근태내역 
+$.selectAttByEmpList = function(data) {
+	$.ajax({
+		url : `${path}/Attendances/selectAttByEmp`,
+		type : 'post',
+		data : { "empId" : data },
+		success : function(res){
+			evts = [];
+			if(res.length == 0){
+				cal(res);
+			} 
+			$.each(res, function(i, v) {
+				atts = v.att_date.split(' ');
+				if(!('att_time' in v)){
+					start = atts[0]+'T'+'09:00:59';			
+				} else{
+					start = atts[0] + 'T' + v.att_time;
+				}
+				state = v.att_state;
+				empId = v.emp_id;
+				point = "";
+				if (state == "정상") {
+					point = '#0054FF'; // 파란색
+				} else if (state == "지각") {
+					point = '#FFE400'; // 노란색
+				} else if (state == "연차") {
+					point = '#FF007F';	// 분홍색
+				} else if (state == "병가") {
+					point = '#b342f5';	// 분홍색
+				}	else if (state == "예비군/민방위") {
+					point = '#257e4a';	// 분홍색
+				}	
+				evt = {
+					"title": state, // json타입으로 만들기 위해서 "" 필수!!!
+					"start": start,
+					"color": point
+				}
+				evts.push(evt);
+				cal(evts)
+			})
+		},
+		error : function(xhr){
+			alert("상태 : " + xhr.status)
+		},
+		dataType : 'json'
+	})
+}
+// 근태메모 가져오기
+$.selectAttMemo = function(empId, attDate, id){
+	$.ajax({
+		url : `${path}/Attendances/selMemo`,
+		type : 'post',
+		data : { "empId" : empId, "attDate" : attDate},
+		success : function(res){
+			if(id == "admin"){
+				$('.att-modal-body textarea').val(res);
+				$('.att-modal-body textarea').prop('disabled', true);
+			} else {
+				if(res == "미등록"){
+					$('.att-modal-body textarea').val('');
+					$('.att-modal-body textarea').prop('disabled', false);
+					$('#att-detail-sub').show();
+					$('#att-detail-mod').css('display', 'none');
+				} else {
+					$('.att-modal-body textarea').val(res);
+					$('.att-modal-body textarea').prop('disabled', false);
+					$('#att-detail-sub').css('display', 'none');
+					$('#att-detail-mod').show();
+				}				
+			}
+		},
+		error : function(xhr){
+			alert("상태 : " + xhr.status)
+		}
+	})
+}
+
+

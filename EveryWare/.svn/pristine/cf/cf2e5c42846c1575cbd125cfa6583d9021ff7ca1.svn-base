@@ -1,0 +1,18 @@
+@charset "UTF-8";
+body {
+    margin: 40px 10px;
+    padding: 0;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 14px;
+  }
+
+  #calendar {
+    max-width: 900px; 
+    margin: 0 auto;
+  }
+.fc-toolbar-chunk #fc-dom-1{ 
+	display : inline;
+}
+.page-header {
+	text-align: center;
+}

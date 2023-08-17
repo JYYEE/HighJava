@@ -1,0 +1,37 @@
+package everyware.att.controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import groupware.emp.vo.EmployeesVO;
+
+/**
+ * Servlet implementation class AttController
+ */
+@WebServlet("/Attendances")
+public class AttController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	@Override
+		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		
+		HttpSession session = request.getSession();
+		EmployeesVO vo = (EmployeesVO) session.getAttribute("userVO"); 
+	    //String empId = "a001"; 
+		String empId = vo.getEmp_id();
+		
+	    if(empId.equals("admin")) {
+	    	//request.setAttribute("empId", empId);
+	    	request.getRequestDispatcher("/att/attendancead.jsp").forward(request, response);
+	    } else {
+	    	//request.setAttribute("empId", empId);
+	    	request.getRequestDispatcher("/att/attendance.jsp").forward(request, response);
+	    }
+	}
+}

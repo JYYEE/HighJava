@@ -1,0 +1,150 @@
+@charset "UTF-8";
+.container{
+	width: 99%;
+	float: left;
+}
+.list_title{
+	text-align: center;
+}
+.doc-title{
+	cursor: pointer;
+}
+.list_no{
+	
+}
+table{
+	margin: 5px;
+	margin-bottom: 16px;
+	border-collapse : collapse;
+	width: 99%;
+}
+.list-table td,
+.list-table th{
+	border: 1px solid lightgray;
+	height: 30px;
+	padding: 0.5em;
+	text-align: center;
+}
+th{
+	background: #F3F3F3;
+}
+.list-table th:first-child,
+.list-table td:first-child {
+	border-left: 0;
+}
+.list-table th:last-child,
+.list-table td:last-child {
+	border-right: 0;
+}
+.list_no{
+	width: 4%;
+}
+.list_doc_no{
+	width: 15%;
+}
+.list_doc_title{
+	width: 37%;
+}
+.list_doc_writer, .list_aprv_date{
+	width: 10%;
+}
+.list_doc_state{
+	width: 10%;
+}
+.search-container{
+	margin-bottom: 66px;
+}
+.search-table{
+	padding: 20px;
+	margin-bottom: 23px
+}
+.search-table td{
+	padding-left: 50px;
+	text-align: left;
+	width: 49%;
+}
+.search-table tr:first-child{
+	border-top: 1px solid lightgray;
+}
+.search-table tr:last-child{
+	border-bottom: 1px solid lightgray;
+}
+.searchDate{
+	padding-top: 20px;
+	padding-bottom: 5px;
+}
+.searchState, .searchWord{
+	padding-top: 5px;
+	padding-bottom: 20px;
+}
+.search-table label{
+	width: 90px;
+}
+#sStateType{
+	border-color: lightgray;
+  width: 317px;
+  height: 35px;
+}
+#stype{
+	border-color: lightgray;
+  width: 100px;
+  height: 35px;
+}
+#sword{
+	border: 1px solid lightgray;
+  width: 250px;
+  height: 35px;
+}
+input[type=date]{
+	border: 1px solid lightgray;
+  width: 150px;
+  height: 35px;
+}
+#searchBtn{
+  cursor: pointer;
+	padding-left: 60px;
+  padding-right: 60px;
+  border-radius: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+	background-color: #04AA6D;
+/* 	background-color: #04AA6D; */
+  color: #ffffff;
+  box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+}
+#searchBtn:hover{
+	background-color: #00894F;
+}
+.wrapper{
+	text-align: center;
+}
+.currentMenu{
+	margin-left: 6px;
+}
+#pagelist{
+	display: flex;
+	justify-content: center;
+}
+
+/* Pagination links */
+.pagination a {
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+.pagination a:not(.a-disabled){
+	color: black;
+}
+.pagination a.active {
+  background-color: #04AA6D26;
+  color: black;
+}
+.pagination a:hover:not(.active, .a-disabled){
+	background-color: #ddd;
+}
+.a-disabled{
+	cursor: default;
+}
+.a-disabled:hover{
+}
